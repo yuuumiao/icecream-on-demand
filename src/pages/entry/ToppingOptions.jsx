@@ -13,6 +13,8 @@ function ToppingOptions({ imagePath, name }) {
       style={{ textAlign: "center" }}
     >
       <img src={`http://localhost/3030/${imagePath}`} alt={`${name} topping`} />
+      <label htmlFor={name}>{name}</label>
+      <input id={name} type="checkbox" />
     </Col>
   );
 }
