@@ -1,4 +1,5 @@
-import { render, screen } from "@testing-library/react";
+import React from "react";
+import { render, screen } from "../../../test-utils/testing-library-utils";
 import Options from "../Options";
 
 //Mock service worker in tests cummunicate with the test file directly, dont do the api call

@@ -8,6 +8,14 @@ import React, {
 //useMemo is to preventing page refrashing too fast
 import { pricePerItem } from "../constants/index";
 
+const formatCurrency = (amount) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  }).format(amount);
+};
+
 const OrderDetails = createContext();
 
 //create a custom hooker
@@ -23,7 +31,7 @@ const useOrderDetails = () => {
 
 const calculateSubtotal = (optionType, optionCounts) => {
   let optionCount = 0;
-  for (const count of optionCounts[optionType].value()) {
+  for (const count of optionCounts[optionType].values()) {
     //it will iterate the value
     optionCount += count;
   }
@@ -36,11 +44,11 @@ const OrderDetailsProvider = (props) => {
     toppings: new Map(),
   });
   //Map() is like Object, but easier to iterate
-
+  const zeroFormatted = formatCurrency(0);
   const [totals, setTotals] = useState({
-    scoops: 0,
-    toppings: 0,
-    grandTotal: 0,
+    scoops: zeroFormatted,
+    toppings: zeroFormatted,
+    grandTotal: zeroFormatted,
   });
 
   useEffect(() => {
@@ -48,15 +56,16 @@ const OrderDetailsProvider = (props) => {
     const toppingsSubtotal = calculateSubtotal("toppings", optionCounts);
     const grandTotal = scoopsSubtotal + toppingsSubtotal;
     setTotals({
-      scoops: scoopsSubtotal,
-      toppings: toppingsSubtotal,
-      grandTotal: grandTotal,
+      scoops: formatCurrency(scoopsSubtotal),
+      toppings: formatCurrency(toppingsSubtotal),
+      grandTotal: formatCurrency(grandTotal),
     });
   }, [optionCounts]);
 
   const updatedValue = useMemo(() => {
     const updateItemsCount = (itemName, newItemCount, optionType) => {
       const newOptionCounts = { ...optionCounts };
+
       const optionCountsMap = optionCounts[optionType];
       optionCountsMap.set(itemName, parseInt(newItemCount));
       setOptionCounts(newOptionCounts);
@@ -70,4 +79,4 @@ const OrderDetailsProvider = (props) => {
   return <OrderDetails.Provider value={updatedValue} {...props} />;
 };
 
-export { OrderDetailsProvider, useOrderDetails };
+export { useOrderDetails, OrderDetailsProvider };
