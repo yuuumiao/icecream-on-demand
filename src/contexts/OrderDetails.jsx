@@ -6,15 +6,8 @@ import React, {
   useMemo,
 } from "react";
 //useMemo is to preventing page refrashing too fast
-import { pricePerItem } from "../constants/index";
-
-const formatCurrency = (amount) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-  }).format(amount);
-};
+import { pricePerItem } from "../constants";
+import { formatCurrency } from "../utilities";
 
 const OrderDetails = createContext();
 

@@ -9,9 +9,9 @@ import Row from "react-bootstrap/Row";
 import AlertBanner from "../common/AlertBanner";
 // eslint-disable-next-line
 import Loading from "../common/Loading";
-
 import { pricePerItem } from "../../constants/index";
 import { useOrderDetails } from "../../contexts/OrderDetails";
+import { formatCurrency } from "../../utilities";
 
 function Options({ optionType }) {
   const [items, setItems] = useState([]);
@@ -51,7 +51,7 @@ function Options({ optionType }) {
   return (
     <div>
       <h2>{title}</h2>
-      <p>{pricePerItem[optionType]} each</p>
+      <p>{formatCurrency(pricePerItem[optionType])} each</p>
       <p>
         {title} total: {orderDetails.totals[optionType]}
       </p>
