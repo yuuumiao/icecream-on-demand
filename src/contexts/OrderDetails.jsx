@@ -64,9 +64,15 @@ const OrderDetailsProvider = (props) => {
       setOptionCounts(newOptionCounts);
     };
 
+    const resetOrder = () => {
+      setOptionCounts({
+        scoops: new Map(),
+        toppings: new Map(),
+      });
+    };
     //getter: object containing option counts for scoops and toppings, subtatals and totals
     //setter: updateOptionCount
-    return [{ ...optionCounts, totals }, updateItemsCount];
+    return [{ ...optionCounts, totals }, updateItemsCount, resetOrder];
   }, [optionCounts, totals]); //like userEffect, it needs to know when to change
 
   return <OrderDetails.Provider value={updatedValue} {...props} />;

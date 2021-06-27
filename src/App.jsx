@@ -1,19 +1,36 @@
 import React from "react";
 import "./App.css";
+import { useState } from "react";
 import Container from "react-bootstrap/Container";
-import OrderEntry from "./pages/entry/OrderEntry";
 import { OrderDetailsProvider } from "./contexts/OrderDetails";
 import "bootstrap/dist/css/bootstrap.min.css";
-// eslint-disable-next-line
-import SummaryForm from "./pages/summary/SummaryForm";
-// eslint-disable-next-line
-import Options from "./pages/entry/Options";
+import OrderEntry from "./pages/entry/OrderEntry";
+import OrderSummary from "./pages/summary/OrderSummary";
+import OrderConfirmation from "./pages/orderConfirmation/OrderConfirmation";
 
 function App() {
+  const [orderPhase, setOrderPhase] = useState("inProgress");
+  console.log("app is loading>>>", orderPhase);
+
+  let OrderPhaseComponent = OrderEntry;
+  switch (orderPhase) {
+    case "inProgress":
+      OrderPhaseComponent = OrderEntry;
+      break;
+    case "review":
+      OrderPhaseComponent = OrderSummary;
+      break;
+    case "completed":
+      OrderPhaseComponent = OrderConfirmation;
+      break;
+  }
+
   return (
     <Container className="App">
       <OrderDetailsProvider>
-        <OrderEntry />
+        <Container>
+          {<OrderPhaseComponent setOrderPhase={setOrderPhase} />}
+        </Container>
       </OrderDetailsProvider>
     </Container>
   );

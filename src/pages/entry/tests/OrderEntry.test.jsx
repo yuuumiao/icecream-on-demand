@@ -35,4 +35,5 @@ test("handlers error for scoops and toppings routes", async () => {
 // await (waitFor(() => screen.getByText('text rendered by child'),{timeout:3000}));
 
 //using test.only and test.skip to isolate tests - with test and p
-test.skip("not a real test but it illustrates how to skip a test", () => {});
+// test.skip("not a real test but it illustrates how to skip a test", () => {});
+// test.only("not a real test but it illustrates how to only test a single test", () => {});

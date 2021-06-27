@@ -6,7 +6,7 @@ import OrderEntry from "../OrderEntry";
 
 test("updating scroops subtotal when scoops change", async () => {
   render(<Options optionType="scoops" />);
-  //We are wrapping the provider here is only becasue we didnt wrapp the whole app in the provider
+  //We are wrapping the provider here is only becasue we didnt wrap the whole app in the provider
   //Other options to wrap: routers, redex provider
 
   const scoopsSubtotal = screen.getByText("Scoops total", { exact: false });
