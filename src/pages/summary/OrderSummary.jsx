@@ -4,11 +4,14 @@ import { useOrderDetails } from "../../contexts/OrderDetails";
 
 function OrderSummary({ setOrderPhase }) {
   const [orderDetails] = useOrderDetails();
-  // console.log(orderDetails);
 
   const scoopsArray = Array.from(orderDetails.scoops.entries());
   const scoopsList = scoopsArray.map(([key, value]) => {
-    <li key={key}>{(value, key)}</li>;
+    return (
+      <li key={key}>
+        {value} {key}
+      </li>
+    );
   });
 
   const toppingsArray = Array.from(orderDetails.toppings.keys());
@@ -19,8 +22,13 @@ function OrderSummary({ setOrderPhase }) {
       <h1>Order summary</h1>
       <h2>Scoops: {orderDetails.totals.scoops}</h2>
       <ul>{scoopsList}</ul>
-      <h2>Toppings: {orderDetails.totals.toppings}</h2>
-      <ul>{toppingsList}</ul>
+      {toppingsArray.length !== 0 ? (
+        <>
+          <h2>Toppings: {orderDetails.totals.toppings}</h2>
+          <ul>{toppingsList}</ul>
+        </>
+      ) : null}
+
       <SummaryForm setOrderPhase={setOrderPhase} />
     </div>
   );

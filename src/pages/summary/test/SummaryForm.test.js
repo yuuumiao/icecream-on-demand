@@ -14,7 +14,7 @@ test("checkbox is unchecked by default", () => {
     name: /terms and conditions/i,
   });
   const confirmButton = screen.getByRole("button", {
-    name: /confirm order/i,
+    name: /confirm your order/i,
   });
   expect(checkBox).not.toBeChecked();
   expect(confirmButton).toBeDisabled();
@@ -26,7 +26,7 @@ test("checking checbox enables the button", () => {
     name: /terms and conditions/i,
   });
   const confirmButton = screen.getByRole("button", {
-    name: /confirm order/i,
+    name: /confirm your order/i,
   });
   userEvent.click(checkBox);
   expect(confirmButton).toBeEnabled();
@@ -38,7 +38,7 @@ test("Unchecking the checkbox again disappears the button", () => {
     name: /terms and conditions/i,
   });
   const confirmButton = screen.getByRole("button", {
-    name: /confirm order/i,
+    name: /confirm your order/i,
   });
   userEvent.click(checkBox);
   expect(confirmButton).toBeEnabled();

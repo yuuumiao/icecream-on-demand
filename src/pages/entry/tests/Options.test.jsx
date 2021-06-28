@@ -1,5 +1,10 @@
+import userEvent from "@testing-library/user-event";
 import React from "react";
-import { render, screen } from "../../../test-utils/testing-library-utils";
+import {
+  findByRole,
+  render,
+  screen,
+} from "../../../test-utils/testing-library-utils";
 import Options from "../Options";
 
 //Mock service worker in tests cummunicate with the test file directly, dont do the api call
@@ -16,7 +21,7 @@ test("display image for each scoop option from server", async () => {
   expect(altText).toEqual(["Chocolate scoop", "Vanilla scoop"]);
 });
 
-test("display imga for each toppings from server", async () => {
+test("display img for each toppings from server", async () => {
   render(<Options optionType="toppings" />);
   const toppingImgaes = await screen.findAllByRole("img", {
     name: /topping$/i,
@@ -28,4 +33,16 @@ test("display imga for each toppings from server", async () => {
     "M&Ms topping",
     "Hot fudge topping",
   ]);
+});
+
+test("the total for scoops wont update when the input is invalid", async () => {
+  render(<Options optionType="scoops" />);
+  const chocolateInput = await screen.findByRole("spinbutton", {
+    name: "Chocolate",
+  });
+  userEvent.clear(chocolateInput);
+  userEvent.type(chocolateInput, "-1");
+
+  const scoopsSubtotal = screen.getByText(/scoops total:/i);
+  expect(scoopsSubtotal).toHaveTextContent(/0.00/);
 });

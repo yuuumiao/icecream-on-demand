@@ -10,7 +10,6 @@ import OrderConfirmation from "./pages/orderConfirmation/OrderConfirmation";
 
 function App() {
   const [orderPhase, setOrderPhase] = useState("inProgress");
-  console.log("app is loading>>>", orderPhase);
 
   let OrderPhaseComponent = OrderEntry;
   switch (orderPhase) {
